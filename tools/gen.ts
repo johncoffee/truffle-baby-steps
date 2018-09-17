@@ -28,7 +28,7 @@ function deployContract(deployer) {
 module.exports = deployContract
 `.trim()
 
-const testJsTpl = `
+const testTsTpl = `
 const ${normalizedName} = artifacts.require("${normalizedName}")
 
 contract('${normalizedName}', function(accounts) {
@@ -46,18 +46,18 @@ const testSolTpl = ``
 
 const migPath =   join(__dirname, "../", 'truffle/migrations', inputName + '.js')
 const solPath =   join(__dirname, "../", 'truffle/contracts', inputName + '.sol')
-const jsTestPath= join(__dirname, "../", 'truffle/test', inputName + '.test.js')
+const tsTestPath= join(__dirname, "../", 'truffle/test', inputName + '.test.ts')
 const solTestPath=join(__dirname, "../", 'truffle/test', inputName + '.test.sol')
 
 if (command === "create" || command === "mk") {
   writeFile(migPath, migrationJsTpl)
   writeFile(solPath, solContractTpl)
-  writeFile(jsTestPath, testJsTpl)
+  writeFile(tsTestPath, testTsTpl)
 }
 else if (command === "rm") {
   remove(migPath)
   remove(solPath)
-  remove(jsTestPath)
+  remove(tsTestPath)
   remove(solTestPath)
 }
 
