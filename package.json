@@ -1,0 +1,33 @@
+{
+  "name": "solidity-baby-steps",
+  "version": "1.0.0",
+  "description": "Contract examples for Ethereum",
+  "main": "index.js",
+  "scripts": {
+    "ganache": "node node_modules/ganache-cli/build/cli.node.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johncoffee/solidity-baby-steps.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johncoffee/solidity-baby-steps/issues"
+  },
+  "homepage": "https://github.com/johncoffee/solidity-baby-steps#readme",
+  "dependencies": {
+    "bn.js": "4.11.8",
+    "fs-extra": "7.0.0",
+    "ganache-cli": "6.1.8"
+  },
+  "devDependencies": {
+    "@types/node": "10.9.4",
+    "@types/fs-extra": "5.0.4",
+    "@types/chai": "4.1.4",
+    "@types/mocha": "5.2.5",
+    "typescript": "3.0.3",
+    "truffle-typings": "1.0.3"
+  }
+}
