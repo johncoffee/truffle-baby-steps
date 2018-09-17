@@ -15,5 +15,7 @@ does best.
 #### Requirements
 We need `node`, `npm` and `truffle` installed globally.
 
+It worked last with truffle@4.1.14 and node v8.11.3 npm 5.6.0
+
 #### Depedencies
 `npm install`

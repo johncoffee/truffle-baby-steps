@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2017",
+    "moduleResolution": "node",
+    "sourceMap": false,
+    "allowJs": false,
+    "noEmitOnError": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    "strict": true,
+    "noImplicitAny": true,
+    "alwaysStrict": true
+  },
+  "include": [
+    "../node_modules/truffle-typings/index.d.ts",
+    "**/*.ts"
+  ]
+}

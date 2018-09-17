@@ -1,7 +1,5 @@
-truffle
 node_modules
-package*
 
 /**/build
-
+/truffle/**/.js
 /tools/**/*.js
