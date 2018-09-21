@@ -1,22 +1,8 @@
 {
-  "name": "solidity-baby-steps",
+  "name": "truffle-baby-steps",
   "version": "1.0.0",
-  "description": "Contract examples for Ethereum",
+  "description": "This is a framework for getting started with Solidity, deployment of contracts, and unit testing. Basically what Truffle  does best.",
   "main": "index.js",
-  "scripts": {
-    "ganache": "node node_modules/ganache-cli/build/cli.node.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/johncoffee/solidity-baby-steps.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/johncoffee/solidity-baby-steps/issues"
-  },
-  "homepage": "https://github.com/johncoffee/solidity-baby-steps#readme",
   "dependencies": {
     "bn.js": "4.11.8",
     "fs-extra": "7.0.0",
@@ -29,5 +15,19 @@
     "@types/mocha": "5.2.5",
     "typescript": "3.0.3",
     "truffle-typings": "1.0.3"
-  }
+  },
+  "scripts": {
+    "ganache": "node node_modules/ganache-cli/build/cli.node.js -p 7545"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johncoffee/truffle-baby-steps.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johncoffee/truffle-baby-steps/issues"
+  },
+  "homepage": "https://github.com/johncoffee/truffle-baby-steps#readme"
 }
