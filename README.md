@@ -9,15 +9,15 @@ The approach is the same as fiveogit's [solidity-baby-steps](https://github.com/
 
 # Running
 
-`npm run ganache` short for `node node_modules/ganache-cli/build/cli.node.js`
+`npm run ganache`
 
 
 # Installing 
 
 #### Requirements
-We need `node`, `npm` and `truffle` installed globally.
+We need to install `node`, `npm`, `truffle`, and `typescript` globally.
 
-It worked last with truffle@4.1.14 and node v8.11.3 npm 5.6.0
+It worked last with truffle@4.1.14 and node v8.11.3 npm 5.6.0, typescript 3.0.3
 
 #### Depedencies
 `npm install`
