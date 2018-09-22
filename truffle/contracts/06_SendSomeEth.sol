@@ -1,12 +1,16 @@
 pragma solidity ^0.4.24;
 
-contract Balance {
-
+contract SendSomeEth {
     address public owner;
 
-    constructor() public payable
+    constructor() public
     {
         owner = msg.sender;
+    }
+
+    function() public payable
+    {
+        // contract is payable
     }
 
     function getOwnersBalance() external constant returns (uint)
