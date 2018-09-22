@@ -3,9 +3,11 @@ import { join } from 'path'
 
 const command = process.argv[2]
 const inputName = process.argv[3]
-const normalizedName = inputName.replace(/^[\d_]+/, '')
 
-console.assert(inputName, "Please provide a name, eg. 01_HelloWorld")
+console.assert((command === "create" || command === "mk" || command === "rm"), "Please provide a command, eg. `create 01_HelloWorld`")
+console.assert(inputName, "Please provide a contract name, eg. 01_HelloWorld")
+
+const normalizedName = inputName.replace(/^[\d_]+/, '')
 
 const solContractTpl = `
 pragma solidity ^0.4.24;
