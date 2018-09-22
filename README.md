@@ -11,7 +11,7 @@ The approach is the same as fiveogit's [solidity-baby-steps](https://github.com/
   1. Download/clone this code repository
     a. Save it, and navigate to the folder in a terminal 
   2. Install the dependencies
-    See [Installing](#Installing)
+    See [Installing](##Installing)
   3. Create a new contract and unit tests
     a. Either do it manually by adding eg. `contracts/01_HelloWorld.sol` and `test/01_HelloWorld.test.js` (in the `/truffle` folder)
     b. Or use my convenient tool eg. `node tools/gen.js mk 01_HelloWorld`
