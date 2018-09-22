@@ -1,5 +1,6 @@
 node_modules
 
 /**/build
-/truffle/**/.js
+/truffle/**/*.js
+/truffle/**/*.map
 /tools/**/*.js
