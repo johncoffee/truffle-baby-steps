@@ -1,6 +1,6 @@
 
 
-# Truffle baby steps
+### Truffle baby steps
 This is a framework for getting started with Solidity, deployment of contracts, and unit testing.
 Basically what [Truffle](http://truffleframework.com/) does best.
 
@@ -30,7 +30,7 @@ When you have added new/changed tests:
 
 After the contracts has been deployed you just need to write more javascript tests, and run `truffle test`
 
-# Installing 
+## Installing 
 
   1. We need to install NodeJS and NPM
   2. Install `truffle`, and `typescript` globally. 
