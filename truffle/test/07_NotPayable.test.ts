@@ -21,4 +21,17 @@ contract('NotPayable', function(accounts:string[]) {
     const bal = await web3.eth.getBalance(instance.address)
     assert.equal(bal.toString() === '0', true, instance.address + " should have 0 wei")
   })
+
+  it("Throw on revert", async () => {
+    const instance = await NotPayable.deployed()
+
+    let msg:string = ''
+    try {
+      await instance.ReturnMeGas.call()
+    }
+    catch (e) {
+      msg = e.toString()
+    }
+    assert.notEqual('', msg, "Should have thrown error - or at least not failed silently")
+  })
 })
