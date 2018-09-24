@@ -24,7 +24,7 @@ contract BasicIterator {
         return sum;
     }
 
-    function getNumberAt(uint8 _idx) external returns (uint8) // if its not external, it will not be found in the javascript representation
+    function getNumberAt(uint8 _idx) external constant returns (uint8) // if its not external, it will not be found in the javascript representation
     {
         return integers[_idx];
     }
