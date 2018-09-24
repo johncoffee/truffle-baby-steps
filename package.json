@@ -17,7 +17,7 @@
     "truffle-typings": "1.0.3"
   },
   "scripts": {
-    "ganache": "node node_modules/ganache-cli/build/cli.node.js -p 7545"
+    "ganache": "ganache-cli -p 7545"
   },
   "repository": {
     "type": "git",
