@@ -2,9 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs_extra_1 = require("fs-extra");
 var path_1 = require("path");
-var command = process.argv[2];
-var inputName = process.argv[3];
-console.assert((command === "create" || command === "mk" || command === "rm"), "Please provide a command, eg. `create 01_HelloWorld`");
+var defaultCmd = "mk";
+var commands = [defaultCmd, 'create', 'rm'];
+var inputName = process.argv[3] || process.argv[2];
+var command = (commands.indexOf(process.argv[2]) > -1) ? process.argv[2] : defaultCmd;
 console.assert(inputName, "Please provide a contract name, eg. 01_HelloWorld");
 var normalizedName = inputName.replace(/^[\d_]+/, '');
 var solContractTpl = ("\npragma solidity ^0.4.24;\n\ncontract " + normalizedName + " {\n    \n    constructor() public\n    {\n    }   \n}\n").trim();

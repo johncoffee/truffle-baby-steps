@@ -1,10 +1,11 @@
 import { remove, writeFile } from 'fs-extra'
 import { join } from 'path'
 
-const command = process.argv[2]
-const inputName = process.argv[3]
+const defaultCmd = "mk"
+const commands:string[] = [defaultCmd, 'create', 'rm']
+const inputName = process.argv[3] || process.argv[2]
+const command = (commands.indexOf(process.argv[2]) > -1) ? process.argv[2] : defaultCmd
 
-console.assert((command === "create" || command === "mk" || command === "rm"), "Please provide a command, eg. `create 01_HelloWorld`")
 console.assert(inputName, "Please provide a contract name, eg. 01_HelloWorld")
 
 const normalizedName = inputName.replace(/^[\d_]+/, '')
