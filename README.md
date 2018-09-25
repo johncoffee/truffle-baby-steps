@@ -2,21 +2,21 @@
 
 ### Truffle baby steps
 This is a framework for getting started with Solidity, deployment of contracts, and unit testing.
-Basically what [Truffle](http://truffleframework.com/) does best.
+Basically what the [Truffle](http://truffleframework.com/) framework does best.
 
 The approach is the same as fiveogit's [solidity-baby-steps](https://github.com/fivedogit/solidity-baby-steps)
+
 
 # Let's learn some Solidity with the Truffle framework!
 
   1. Download/clone this code repository
-    a. Save it, and navigate to the folder in a terminal 
+    a. Navigate to the folder in a terminal/command prompt 
   2. Install the dependencies
     See [Installing](#Installing)
   3. Create a new contract and unit tests
     a. Either do it manually by adding eg. `contracts/01_HelloWorld.sol` and `test/01_HelloWorld.test.js` (in the `/truffle` folder)
-    b. Or use my convenient tool eg. `node tools/gen.js mk 01_HelloWorld`
+    b. Or use my convenient tool eg. `node tools/gen.js 01_HelloWorld`
 
-See examples in the `julian` branch.
 
 ## The development loop
 
