@@ -21,8 +21,8 @@
   "scripts": {
     "postinstall": "npm run compile-tests",
     "ganache": "node node_modules/ganache-cli/build/cli.node.js -p 7545",
-    "compile-tests": "node node_modules/typescript/bin/tsc --project ./truffle/",
-    "compile-tools": "node node_modules/typescript/bin/tsc --project ./tools/ -p truffle/tsconfig.json"
+    "compile-tests": "node node_modules/typescript/bin/tsc --project ./truffle/ -p ./tsconfig.json",
+    "compile-tools": "node node_modules/typescript/bin/tsc --project ./tools/ -p ./tsconfig.json"
   },
   "repository": {
     "type": "git",
