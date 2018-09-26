@@ -1,8 +1,8 @@
 const SendSomeEth = artifacts.require("SendSomeEth")
-const lightwallet = require('eth-lightwallet')
-const solsha3 = require('solidity-sha3').default
-const leftPad = require('left-pad')
-const BigNumber = require('bignumber.js')
+import lightwallet = require('eth-lightwallet')
+import solsha3 = require('solidity-sha3')
+import leftPad = require('left-pad')
+// import BigNumber = require('bignumber.js')
 
 contract('SendSomeEth', function(accounts:string[]) {
   let keyFromPw:string
@@ -11,12 +11,12 @@ contract('SendSomeEth', function(accounts:string[]) {
 
   let createSigs = function(signers:string[], multisigAddr:string[], nonce:any, destinationAddr:string, value:any, data:string) {
 
-    let input = '0x19' + '00' + multisigAddr.slice(2) + destinationAddr.slice(2) + leftPad(value.toString('16'), '64', '0') + data.slice(2) + leftPad(nonce.toString('16'), '64', '0')
+    let input = '0x19' + '00' + multisigAddr.slice(2) + destinationAddr.slice(2) + leftPad(value.toString('16'), 64, '0') + data.slice(2) + leftPad(nonce.toString('16'), 64, '0')
     let hash = solsha3(input)
 
-    let sigV = []
-    let sigR = []
-    let sigS = []
+    const sigV:string[] = []
+    const sigR:string[] = []
+    const sigS:string[] = []
 
     for (var i=0; i<signers.length; i++) {
       let sig = lightwallet.signing.signMsgHash(lw, keyFromPw, hash, signers[i])
@@ -36,7 +36,7 @@ contract('SendSomeEth', function(accounts:string[]) {
     let randomAddr = solsha3(Math.random()).slice(0,42)
 
     // Receive funds
-    await web3.eth.sendTransaction({from: accounts[0], to: multisig.address, value: web3.toWei(new BigNumber(0.1), 'ether')})
+    await web3.eth.sendTransaction({from: accounts[0], to: multisig.address, value: web3.toWei('0.1', 'ether')})
 
     let nonce = await multisig.nonce.call()
     assert.equal(nonce.toNumber(), 0)
@@ -50,7 +50,7 @@ contract('SendSomeEth', function(accounts:string[]) {
       assert.equal(owners[i], ownerFromContract)
     }
 
-    let value = web3.toWei(new BigNumber(0.01), 'ether')
+    let value = web3.toWei('0.1', 'ether')
 
     let sigs = createSigs(signers, multisig.address, nonce, randomAddr, value, '0x')
 
@@ -108,10 +108,10 @@ contract('SendSomeEth', function(accounts:string[]) {
     assert.equal(nonce.toNumber(), 0)
 
     // Receive funds
-    await web3.eth.sendTransaction({from: accounts[0], to: multisig.address, value: web3.toWei(new BigNumber(2), 'ether')})
+    await web3.eth.sendTransaction({from: accounts[0], to: multisig.address, value: web3.toWei('2', 'ether')})
 
     let randomAddr = solsha3(Math.random()).slice(0,42)
-    let value = web3.toWei(new BigNumber(0.1), 'ether')
+    let value = web3.toWei('0.1', 'ether')
     let sigs = createSigs(signers, multisig.address, nonce, randomAddr, value, '0x')
 
     let errMsg = ''

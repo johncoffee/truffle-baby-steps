@@ -1,7 +1,5 @@
 const c = artifacts.require("./Balance.sol")
 
-function deployContract(deployer) { 
+export default function deployContract(deployer) {
   deployer.deploy(c)
 }
-
-module.exports = deployContract
