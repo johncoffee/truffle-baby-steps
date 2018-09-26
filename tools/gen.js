@@ -9,10 +9,10 @@ var command = (commands.indexOf(process.argv[2]) > -1) ? process.argv[2] : defau
 console.assert(inputName, "Please provide a contract name, eg. 01_HelloWorld");
 var normalizedName = inputName.replace(/^[\d_]+/, '');
 var solContractTpl = ("\npragma solidity ^0.4.24;\n\ncontract " + normalizedName + " {\n    \n    constructor() public\n    {\n    }   \n}\n").trim();
-var migrationTpl = ("\nimport Deployer = Truffle.Deployer\nimport Migration = Truffle.Migration\nimport Accounts = Truffle.Accounts\n\nconst c = artifacts.require(\"./" + normalizedName + ".sol\")\n\nfunction deployContract(deployer:Deployer, network: string, accounts: Accounts) {\n  deployer.deploy(c)\n}\n\nmodule.exports = (deployContract as Migration)\n").trim();
+var migrationTpl = ("\nconst c = artifacts.require(\"./" + normalizedName + ".sol\")\n\nfunction deployContract(deployer) { \n  deployer.deploy(c)\n}\n\nmodule.exports = deployContract\n").trim();
 var testTsTpl = ("\nconst " + normalizedName + " = artifacts.require(\"" + normalizedName + "\")\n\ncontract('" + normalizedName + "', function(accounts) {\n\n  it(\"should \", async () => {\n    const instance = await " + normalizedName + ".deployed()\n    // const a = await instance.fieldName.call()\n    // assert.equal(a, b, \"\")\n  })\n\n})\n").trim();
 var testSolTpl = "";
-var migPath = path_1.join(__dirname, "../", 'truffle/migrations', inputName + '.ts');
+var migPath = path_1.join(__dirname, "../", 'truffle/migrations', inputName + '.js');
 var solPath = path_1.join(__dirname, "../", 'truffle/contracts', inputName + '.sol');
 var tsTestPath = path_1.join(__dirname, "../", 'truffle/test', inputName + '.test.ts');
 var solTestPath = path_1.join(__dirname, "../", 'truffle/test', inputName + '.test.sol');

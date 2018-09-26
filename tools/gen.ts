@@ -22,17 +22,13 @@ contract ${normalizedName} {
 `.trim()
 
 const migrationTpl = `
-import Deployer = Truffle.Deployer
-import Migration = Truffle.Migration
-import Accounts = Truffle.Accounts
-
 const c = artifacts.require("./${normalizedName}.sol")
 
-function deployContract(deployer:Deployer, network: string, accounts: Accounts) {
+function deployContract(deployer) { 
   deployer.deploy(c)
 }
 
-module.exports = (deployContract as Migration)
+module.exports = deployContract
 `.trim()
 
 const testTsTpl = `
@@ -51,7 +47,7 @@ contract('${normalizedName}', function(accounts) {
 
 const testSolTpl = ``
 
-const migPath =   join(__dirname, "../", 'truffle/migrations', inputName + '.ts')
+const migPath =   join(__dirname, "../", 'truffle/migrations', inputName + '.js')
 const solPath =   join(__dirname, "../", 'truffle/contracts', inputName + '.sol')
 const tsTestPath= join(__dirname, "../", 'truffle/test', inputName + '.test.ts')
 const solTestPath=join(__dirname, "../", 'truffle/test', inputName + '.test.sol')
