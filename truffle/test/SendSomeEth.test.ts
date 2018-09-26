@@ -29,118 +29,118 @@ contract('SendSomeEth', function(accounts:string[]) {
 
   }
 
-  let executeSendSuccess = async function(owners:string[], threshold:number, signers:string[], done:Function) {
-
-    let multisig = await SendSomeEth.new(threshold, owners, {from: accounts[0]})
-
-    let randomAddr = solsha3(Math.random()).slice(0,42)
-
-    // Receive funds
-    await web3.eth.sendTransaction({from: accounts[0], to: multisig.address, value: web3.toWei('0.1', 'ether')})
-
-    let nonce = await multisig.nonce.call()
-    assert.equal(nonce.toNumber(), 0)
-
-    let bal = await web3.eth.getBalance(multisig.address)
-    assert.equal(bal, web3.toWei(0.1, 'ether'))
-
-    // check that owners are stored correctly
-    for (var i=0; i<owners.length; i++) {
-      let ownerFromContract = await multisig.ownersArr.call(i)
-      assert.equal(owners[i], ownerFromContract)
-    }
-
-    let value = web3.toWei('0.1', 'ether')
-
-    let sigs = createSigs(signers, multisig.address, nonce, randomAddr, value, '0x')
-
-    await multisig.execute(sigs.sigV, sigs.sigR, sigs.sigS, randomAddr, value, '0x', {from: accounts[0], gasLimit: 1000000})
-
-    // Check funds sent
-    bal = await web3.eth.getBalance(randomAddr)
-    assert.equal(bal.toString(), value.toString())
-
-    // Check nonce updated
-    nonce = await multisig.nonce.call()
-    assert.equal(nonce.toNumber(), 1)
-
-    // Send again
-    sigs = createSigs(signers, multisig.address, nonce, randomAddr, value, '0x')
-    await multisig.execute(sigs.sigV, sigs.sigR, sigs.sigS, randomAddr, value, '0x', {from: accounts[0], gasLimit: 1000000})
-
-    // Check funds
-    bal = await web3.eth.getBalance(randomAddr)
-    assert.equal(bal.toString(), (value*2).toString())
-
-    // Check nonce updated
-    nonce = await multisig.nonce.call()
-    assert.equal(nonce.toNumber(), 2)
-
-    // Test contract interactions
-    // let reg = await TestRegistry.new({from: accounts[0]})
-
-    // let number = 12345
-    // let data = lightwallet.txutils._encodeFunctionTxData('register', ['uint256'], [number])
-
-    // sigs = createSigs(signers, multisig.address, nonce, reg.address, value, data)
-    // await multisig.execute(sigs.sigV, sigs.sigR, sigs.sigS, reg.address, value, data, {from: accounts[0], gasLimit: 1000000})
-
-    // Check that number has been set in registry
-    // let numFromRegistry = await reg.registry(multisig.address)
-    // assert.equal(numFromRegistry.toNumber(), number)
-
-    // Check funds in registry
-    // bal = await web3.eth.getBalance(reg.address)
-    // assert.equal(bal.toString(), value.toString())
-
-    // Check nonce updated
-    // nonce = await multisig.nonce.call()
-    // assert.equal(nonce.toNumber(), 3)
-
-    done()
-  }
-
-  let executeSendFailure = async function(owners:string[], threshold:number, signers:string[], done:Function) {
-
-    let multisig = await SendSomeEth.new(threshold, owners, {from: accounts[0]})
-
-    let nonce = await multisig.nonce.call()
-    assert.equal(nonce.toNumber(), 0)
-
-    // Receive funds
-    await web3.eth.sendTransaction({from: accounts[0], to: multisig.address, value: web3.toWei('2', 'ether')})
-
-    let randomAddr = solsha3(Math.random()).slice(0,42)
-    let value = web3.toWei('0.1', 'ether')
-    let sigs = createSigs(signers, multisig.address, nonce, randomAddr, value, '0x')
-
-    let errMsg = ''
-    try {
-      await multisig.execute(sigs.sigV, sigs.sigR, sigs.sigS, randomAddr, value, '0x', {from: accounts[0], gasLimit: 1000000})
-    }
-    catch(error) {
-      errMsg = error.message
-    }
-
-    assert.equal(errMsg, 'VM Exception while processing transaction: revert', 'Test did not throw')
-
-    done()
-  }
-
-  let creationFailure = async function(owners:string[], threshold:number, done:Function) {
-    let errMsg = ''
-
-    try {
-      await SendSomeEth.new(threshold, owners, {from: accounts[0]})
-    }
-    catch(error) {
-      errMsg = error.message
-    }
-
-    assert.equal(errMsg, 'VM Exception while processing transaction: revert', 'Test did not throw')
-
-    done()
-  }
+  // let executeSendSuccess = async function(owners:string[], threshold:number, signers:string[], done:Function) {
+  //
+  //   let multisig = await SendSomeEth.new(threshold, owners, {from: accounts[0]})
+  //
+  //   let randomAddr = solsha3(Math.random()).slice(0,42)
+  //
+  //   // Receive funds
+  //   await web3.eth.sendTransaction({from: accounts[0], to: multisig.address, value: web3.toWei('0.1', 'ether')})
+  //
+  //   let nonce = await multisig.nonce.call()
+  //   assert.equal(nonce.toNumber(), 0)
+  //
+  //   let bal = await web3.eth.getBalance(multisig.address)
+  //   assert.equal(bal, web3.toWei(0.1, 'ether'))
+  //
+  //   // check that owners are stored correctly
+  //   for (var i=0; i<owners.length; i++) {
+  //     let ownerFromContract = await multisig.ownersArr.call(i)
+  //     assert.equal(owners[i], ownerFromContract)
+  //   }
+  //
+  //   let value = web3.toWei('0.1', 'ether')
+  //
+  //   let sigs = createSigs(signers, multisig.address, nonce, randomAddr, value, '0x')
+  //
+  //   await multisig.execute(sigs.sigV, sigs.sigR, sigs.sigS, randomAddr, value, '0x', {from: accounts[0], gasLimit: 1000000})
+  //
+  //   // Check funds sent
+  //   bal = await web3.eth.getBalance(randomAddr)
+  //   assert.equal(bal.toString(), value.toString())
+  //
+  //   // Check nonce updated
+  //   nonce = await multisig.nonce.call()
+  //   assert.equal(nonce.toNumber(), 1)
+  //
+  //   // Send again
+  //   sigs = createSigs(signers, multisig.address, nonce, randomAddr, value, '0x')
+  //   await multisig.execute(sigs.sigV, sigs.sigR, sigs.sigS, randomAddr, value, '0x', {from: accounts[0], gasLimit: 1000000})
+  //
+  //   // Check funds
+  //   bal = await web3.eth.getBalance(randomAddr)
+  //   assert.equal(bal.toString(), (value*2).toString())
+  //
+  //   // Check nonce updated
+  //   nonce = await multisig.nonce.call()
+  //   assert.equal(nonce.toNumber(), 2)
+  //
+  //   // Test contract interactions
+  //   // let reg = await TestRegistry.new({from: accounts[0]})
+  //
+  //   // let number = 12345
+  //   // let data = lightwallet.txutils._encodeFunctionTxData('register', ['uint256'], [number])
+  //
+  //   // sigs = createSigs(signers, multisig.address, nonce, reg.address, value, data)
+  //   // await multisig.execute(sigs.sigV, sigs.sigR, sigs.sigS, reg.address, value, data, {from: accounts[0], gasLimit: 1000000})
+  //
+  //   // Check that number has been set in registry
+  //   // let numFromRegistry = await reg.registry(multisig.address)
+  //   // assert.equal(numFromRegistry.toNumber(), number)
+  //
+  //   // Check funds in registry
+  //   // bal = await web3.eth.getBalance(reg.address)
+  //   // assert.equal(bal.toString(), value.toString())
+  //
+  //   // Check nonce updated
+  //   // nonce = await multisig.nonce.call()
+  //   // assert.equal(nonce.toNumber(), 3)
+  //
+  //   done()
+  // }
+  //
+  // let executeSendFailure = async function(owners:string[], threshold:number, signers:string[], done:Function) {
+  //
+  //   let multisig = await SendSomeEth.new(threshold, owners, {from: accounts[0]})
+  //
+  //   let nonce = await multisig.nonce.call()
+  //   assert.equal(nonce.toNumber(), 0)
+  //
+  //   // Receive funds
+  //   await web3.eth.sendTransaction({from: accounts[0], to: multisig.address, value: web3.toWei('2', 'ether')})
+  //
+  //   let randomAddr = solsha3(Math.random()).slice(0,42)
+  //   let value = web3.toWei('0.1', 'ether')
+  //   let sigs = createSigs(signers, multisig.address, nonce, randomAddr, value, '0x')
+  //
+  //   let errMsg = ''
+  //   try {
+  //     await multisig.execute(sigs.sigV, sigs.sigR, sigs.sigS, randomAddr, value, '0x', {from: accounts[0], gasLimit: 1000000})
+  //   }
+  //   catch(error) {
+  //     errMsg = error.message
+  //   }
+  //
+  //   assert.equal(errMsg, 'VM Exception while processing transaction: revert', 'Test did not throw')
+  //
+  //   done()
+  // }
+  //
+  // let creationFailure = async function(owners:string[], threshold:number, done:Function) {
+  //   let errMsg = ''
+  //
+  //   try {
+  //     await SendSomeEth.deployed(threshold, owners, {from: accounts[0]})
+  //   }
+  //   catch(error) {
+  //     errMsg = error.message
+  //   }
+  //
+  //   assert.equal(errMsg, 'VM Exception while processing transaction: revert', 'Test did not throw')
+  //
+  //   done()
+  // }
 
   before((done) => {
 
@@ -166,17 +166,17 @@ contract('SendSomeEth', function(accounts:string[]) {
       })
   })
 
-  it("sender must be rich", async () => {
-    const instance = await SendSomeEth.deployed()
-    const bal = await instance.getOwnersBalance.call()
-    assert.equal(!!bal, true, "We should have something: "+bal.toString())
-  })
-
-  it("should not have ether", async () => {
-    const instance = await SendSomeEth.deployed()
-    const bal = await instance.getThisBalance.call()
-    assert.equal(bal, "0", "We should not have: "+bal.toString())
-  })
+  // it("sender must be rich", async () => {
+  //   const instance = await SendSomeEth.deployed()
+  //   const bal = await instance.getOwnersBalance.call()
+  //   assert.equal(!!bal, true, "We should have something: "+bal.toString())
+  // })
+  //
+  // it("should not have ether", async () => {
+  //   const instance = await SendSomeEth.deployed()
+  //   const bal = await instance.getThisBalance.call()
+  //   assert.equal(bal, "0", "We should not have: "+bal.toString())
+  // })
 
   it("should succeed sending the contract ether because its payable", async () => {
     const wei = web3.toWei('0.1', 'ether')

@@ -11,7 +11,7 @@ contract('BasicIterator', function(accounts:Object[]) {
 
   it("should get sum", async () => {
     const instance = await BasicIterator.deployed()
-    const getSumbn = await instance.getSum.call() // integers return bignumber
+    const getSumbn = await instance.getSum() // integers return bignumber
     assert.equal(getSumbn.toString(), '45', "is equal?")
   })
 })
