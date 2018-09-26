@@ -1,10 +1,12 @@
-import { remove, writeFile } from 'fs-extra'
+import { ensureFile, pathExists, readdir, remove, writeFile } from 'fs-extra'
 import { join } from 'path'
 
 const defaultCmd = "mk"
 const commands:string[] = [defaultCmd, 'create', 'rm']
 const inputName = process.argv[3] || process.argv[2]
-const command = (commands.indexOf(process.argv[2]) > -1) ? process.argv[2] : defaultCmd
+const command = (commands.indexOf(process.argv[2]) === -1) ?  defaultCmd : process.argv[2]
+
+console.debug(command, inputName)
 
 console.assert(inputName, "Please provide a contract name, eg. 01_HelloWorld")
 
@@ -47,20 +49,36 @@ contract('${normalizedName}', function(accounts) {
 
 const testSolTpl = ``
 
-const migPath =   join(__dirname, "../", 'truffle/migrations', inputName + '.js')
-const solPath =   join(__dirname, "../", 'truffle/contracts', inputName + '.sol')
-const tsTestPath= join(__dirname, "../", 'truffle/test', inputName + '.test.ts')
-const solTestPath=join(__dirname, "../", 'truffle/test', inputName + '.test.sol')
+const migDir = join(__dirname, "../", 'truffle/migrations')
 
-if (command === "create" || command === "mk") {
-  writeFile(migPath, migrationTpl)
-  writeFile(solPath, solContractTpl)
-  writeFile(tsTestPath, testTsTpl)
-}
-else if (command === "rm") {
-  remove(migPath)
-  remove(solPath)
-  remove(tsTestPath)
-  remove(solTestPath)
+// @ts-ignore
+async function fun() {
+  const files:string[] = await readdir(migDir)
+
+  const solPath =   join(__dirname, "../", 'truffle/contracts', inputName + '.sol')
+  const tsTestPath= join(__dirname, "../", 'truffle/test', inputName + '.test.ts')
+  const solTestPath=join(__dirname, "../", 'truffle/test', inputName + '.test.sol')
+
+  if (command === "create" || command === "mk") {
+    const migPath =   join(__dirname, "../", 'truffle/migrations', files.length + "_" + inputName + '.js')
+    writeFile(migPath, migrationTpl)
+    writeFile(solPath, solContractTpl)
+    writeFile(tsTestPath, testTsTpl)
+  }
+  else if (command === "rm") {
+    const toDelete = files.find(file => file.includes(inputName))
+
+    if (toDelete) {
+      const migPath = join(__dirname, "../", 'truffle/migrations', toDelete)
+      if (await pathExists(migPath)) {
+        remove(migPath)
+      }
+    }
+
+    remove(solPath)
+    remove(tsTestPath)
+    remove(solTestPath)
+  }
 }
 
+fun()

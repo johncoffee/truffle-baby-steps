@@ -1,29 +1,71 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs_extra_1 = require("fs-extra");
-var path_1 = require("path");
-var defaultCmd = "mk";
-var commands = [defaultCmd, 'create', 'rm'];
-var inputName = process.argv[3] || process.argv[2];
-var command = (commands.indexOf(process.argv[2]) > -1) ? process.argv[2] : defaultCmd;
+const fs_extra_1 = require("fs-extra");
+const path_1 = require("path");
+const defaultCmd = "mk";
+const commands = [defaultCmd, 'create', 'rm'];
+const inputName = process.argv[3] || process.argv[2];
+const command = (commands.indexOf(process.argv[2]) === -1) ? defaultCmd : process.argv[2];
+console.debug(command, inputName);
 console.assert(inputName, "Please provide a contract name, eg. 01_HelloWorld");
-var normalizedName = inputName.replace(/^[\d_]+/, '');
-var solContractTpl = ("\npragma solidity ^0.4.24;\n\ncontract " + normalizedName + " {\n    \n    constructor() public\n    {\n    }   \n}\n").trim();
-var migrationTpl = ("\nconst c = artifacts.require(\"./" + normalizedName + ".sol\")\n\nfunction deployContract(deployer) { \n  deployer.deploy(c)\n}\n\nmodule.exports = deployContract\n").trim();
-var testTsTpl = ("\nconst " + normalizedName + " = artifacts.require(\"" + normalizedName + "\")\n\ncontract('" + normalizedName + "', function(accounts) {\n\n  it(\"should \", async () => {\n    const instance = await " + normalizedName + ".deployed()\n    // const a = await instance.fieldName.call()\n    // assert.equal(a, b, \"\")\n  })\n\n})\n").trim();
-var testSolTpl = "";
-var migPath = path_1.join(__dirname, "../", 'truffle/migrations', inputName + '.js');
-var solPath = path_1.join(__dirname, "../", 'truffle/contracts', inputName + '.sol');
-var tsTestPath = path_1.join(__dirname, "../", 'truffle/test', inputName + '.test.ts');
-var solTestPath = path_1.join(__dirname, "../", 'truffle/test', inputName + '.test.sol');
-if (command === "create" || command === "mk") {
-    fs_extra_1.writeFile(migPath, migrationTpl);
-    fs_extra_1.writeFile(solPath, solContractTpl);
-    fs_extra_1.writeFile(tsTestPath, testTsTpl);
+const normalizedName = inputName.replace(/^[\d_]+/, '');
+const solContractTpl = `
+pragma solidity ^0.4.24;
+
+contract ${normalizedName} {
+    
+    constructor() public
+    {
+    }   
 }
-else if (command === "rm") {
-    fs_extra_1.remove(migPath);
-    fs_extra_1.remove(solPath);
-    fs_extra_1.remove(tsTestPath);
-    fs_extra_1.remove(solTestPath);
+`.trim();
+const migrationTpl = `
+const c = artifacts.require("./${normalizedName}.sol")
+
+function deployContract(deployer) { 
+  deployer.deploy(c)
 }
+
+module.exports = deployContract
+`.trim();
+const testTsTpl = `
+const ${normalizedName} = artifacts.require("${normalizedName}")
+
+contract('${normalizedName}', function(accounts) {
+
+  it("should ", async () => {
+    const instance = await ${normalizedName}.deployed()
+    // const a = await instance.fieldName.call()
+    // assert.equal(a, b, "")
+  })
+
+})
+`.trim();
+const testSolTpl = ``;
+const migDir = path_1.join(__dirname, "../", 'truffle/migrations');
+// @ts-ignore
+async function fun() {
+    const files = await fs_extra_1.readdir(migDir);
+    const solPath = path_1.join(__dirname, "../", 'truffle/contracts', inputName + '.sol');
+    const tsTestPath = path_1.join(__dirname, "../", 'truffle/test', inputName + '.test.ts');
+    const solTestPath = path_1.join(__dirname, "../", 'truffle/test', inputName + '.test.sol');
+    if (command === "create" || command === "mk") {
+        const migPath = path_1.join(__dirname, "../", 'truffle/migrations', files.length + "_" + inputName + '.js');
+        fs_extra_1.writeFile(migPath, migrationTpl);
+        fs_extra_1.writeFile(solPath, solContractTpl);
+        fs_extra_1.writeFile(tsTestPath, testTsTpl);
+    }
+    else if (command === "rm") {
+        const toDelete = files.find(file => file.includes(inputName));
+        if (toDelete) {
+            const migPath = path_1.join(__dirname, "../", 'truffle/migrations', toDelete);
+            if (await fs_extra_1.pathExists(migPath)) {
+                fs_extra_1.remove(migPath);
+            }
+        }
+        fs_extra_1.remove(solPath);
+        fs_extra_1.remove(tsTestPath);
+        fs_extra_1.remove(solTestPath);
+    }
+}
+fun();
