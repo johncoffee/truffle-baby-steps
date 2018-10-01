@@ -49,8 +49,9 @@ async function fun() {
     const solPath = path_1.join(__dirname, "../", 'truffle/contracts', inputName + '.sol');
     const tsTestPath = path_1.join(__dirname, "../", 'truffle/test', inputName + '.test.ts');
     const solTestPath = path_1.join(__dirname, "../", 'truffle/test', inputName + '.test.sol');
+    files.sort();
     if (command === "create" || command === "mk") {
-        const migPath = path_1.join(__dirname, "../", 'truffle/migrations', files.length + "_" + inputName + '.js');
+        const migPath = path_1.join(__dirname, "../", 'truffle/migrations', (parseInt(files[files.length - 1], 10) + 1) + "_" + inputName + '.js');
         fs_extra_1.writeFile(migPath, migrationTpl);
         fs_extra_1.writeFile(solPath, solContractTpl);
         fs_extra_1.writeFile(tsTestPath, testTsTpl);

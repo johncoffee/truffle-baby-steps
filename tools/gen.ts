@@ -59,8 +59,10 @@ async function fun() {
   const tsTestPath= join(__dirname, "../", 'truffle/test', inputName + '.test.ts')
   const solTestPath=join(__dirname, "../", 'truffle/test', inputName + '.test.sol')
 
+  files.sort()
+
   if (command === "create" || command === "mk") {
-    const migPath =   join(__dirname, "../", 'truffle/migrations', files.length + "_" + inputName + '.js')
+    const migPath =   join(__dirname, "../", 'truffle/migrations', (parseInt(files[files.length-1], 10) + 1) + "_" + inputName + '.js')
     writeFile(migPath, migrationTpl)
     writeFile(solPath, solContractTpl)
     writeFile(tsTestPath, testTsTpl)
