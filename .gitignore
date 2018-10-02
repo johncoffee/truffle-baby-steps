@@ -1,7 +1,7 @@
 node_modules
 
 /**/build
-/truffle/test/*.js
-/truffle/**/*.map
+/ethereum/test/*.js
+/ethereum/**/*.map
 
 /tmp
