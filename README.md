@@ -4,7 +4,7 @@
 This is a framework for getting started with Solidity, deployment of contracts, and unit testing.
 Basically what the [Truffle](http://truffleframework.com/) framework does best.
 
-The approach is the same as fiveogit's [solidity-baby-steps](https://github.com/fivedogit/solidity-baby-steps)
+The approach is the same as fiveogit's great repo [solidity-baby-steps](https://github.com/fivedogit/solidity-baby-steps)
 
 
 # Let's learn some Solidity with the Truffle framework!
