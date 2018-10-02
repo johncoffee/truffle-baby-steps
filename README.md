@@ -32,6 +32,7 @@ When you have added new/changed tests:
 
 After the contracts has been deployed you just need to write more javascript tests, and run `truffle test`
 
+
 ## Installing 
 
   1. We need to install NodeJS and NPM
@@ -39,3 +40,8 @@ After the contracts has been deployed you just need to write more javascript tes
       a. Run `npm i -g truffle`
 
 It worked last time with truffle 4.1.14 and node 8.11.3 npm 5.6.0, typescript 3.0.3
+
+
+# Dogma
+
+No complicated tests; only small test cases that explore the functionality of Solidity, contract interfaces, and Truffle.
