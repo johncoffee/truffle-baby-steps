@@ -14,27 +14,28 @@ The approach is the same as fiveogit's great repo [solidity-baby-steps](https://
   2. Install the dependencies
     See [Installing](#Installing)
   3. Create a new contract and unit tests
-    a. Either do it manually by adding eg. `contracts/01_HelloWorld.sol` and `test/01_HelloWorld.test.js` (in the `/truffle` folder)
+    a. Either do it manually by adding eg. `contracts/01_HelloWorld.sol` and `test/01_HelloWorld.test.js`
     b. Or use my convenient tool eg. `node tools/gen.js 01_HelloWorld`
+  4. Run it! See [The development loop](#The development loop)
 
 
 ## The development loop
 
-Start a local blockchain using Ganache `npm run ganache`
+Start a local blockchain using Ganache `npm run ganache` (short for `node node_modules/ganache-cli/build/cli.node.js`)
 
 When you have added new/changed tests:
-  0. Enter the `/truffle` folder
-  1. `truffle compile` to see if the Solidity compiles..
-  1. Make sure the typescript compiles `typechain --target=truffle --outDir=./build "build/contracts/**/*.json"`
-  2. `truffle migrate --reset` to deploy contracts
-  3. `truffle test` to run the tests
+  1. Enter the `/ethereum` folder
+  2. `truffle compile` to see if the Solidity compiles..
+  3. Make sure the typescript compiles `typechain --target=truffle --outDir=./build "build/contracts/**/*.json"`
+  4. `truffle migrate --reset` to deploy contracts
+  5. `truffle test` to run the tests
 
 After the contracts has been deployed you just need to write more javascript tests, and run `truffle test`
 
 ## Installing 
 
   1. We need to install NodeJS and NPM
-  2. Install `truffle`, and `typescript` globally. 
-      a. Run `npm i -g truffle typescript`
+  2. Install `truffle` globally 
+      a. Run `npm i -g truffle`
 
 It worked last time with truffle 4.1.14 and node 8.11.3 npm 5.6.0, typescript 3.0.3
