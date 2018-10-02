@@ -1,6 +1,3 @@
-import lightwallet = require('eth-lightwallet')
-import solsha3 = require('solidity-sha3')
-import leftPad = require('left-pad')
 const SendSomeEth = artifacts.require("SendSomeEth")
 
 contract('SendSomeEth', function(accounts:string[]) {
@@ -8,25 +5,25 @@ contract('SendSomeEth', function(accounts:string[]) {
   let acct:string[]
   let lw:any
 
-  let createSigs = function(signers:string[], multisigAddr:string[], nonce:any, destinationAddr:string, value:any, data:string) {
-
-    let input = '0x19' + '00' + multisigAddr.slice(2) + destinationAddr.slice(2) + leftPad(value.toString('16'), 64, '0') + data.slice(2) + leftPad(nonce.toString('16'), 64, '0')
-    let hash = solsha3(input)
-
-    const sigV:string[] = []
-    const sigR:string[] = []
-    const sigS:string[] = []
-
-    for (var i=0; i<signers.length; i++) {
-      let sig = lightwallet.signing.signMsgHash(lw, keyFromPw, hash, signers[i])
-      sigV.push(sig.v)
-      sigR.push('0x' + sig.r.toString('hex'))
-      sigS.push('0x' + sig.s.toString('hex'))
-    }
-
-    return {sigV: sigV, sigR: sigR, sigS: sigS}
-
-  }
+  // let createSigs = function(signers:string[], multisigAddr:string[], nonce:any, destinationAddr:string, value:any, data:string) {
+  //
+  //   let input = '0x19' + '00' + multisigAddr.slice(2) + destinationAddr.slice(2) + leftPad(value.toString('16'), 64, '0') + data.slice(2) + leftPad(nonce.toString('16'), 64, '0')
+  //   let hash = solsha3(input)
+  //
+  //   const sigV:string[] = []
+  //   const sigR:string[] = []
+  //   const sigS:string[] = []
+  //
+  //   for (var i=0; i<signers.length; i++) {
+  //     let sig = lightwallet.signing.signMsgHash(lw, keyFromPw, hash, signers[i])
+  //     sigV.push(sig.v)
+  //     sigR.push('0x' + sig.r.toString('hex'))
+  //     sigS.push('0x' + sig.s.toString('hex'))
+  //   }
+  //
+  //   return {sigV: sigV, sigR: sigR, sigS: sigS}
+  //
+  // }
 
   // let executeSendSuccess = async function(owners:string[], threshold:number, signers:string[], done:Function) {
   //
@@ -141,29 +138,29 @@ contract('SendSomeEth', function(accounts:string[]) {
   //   done()
   // }
 
-  before((done) => {
-
-    let seed = "pull rent tower word science patrol economy legal yellow kit frequent fat"
-
-    lightwallet.keystore.createVault(
-      {hdPathString: "m/44'/60'/0'/0",
-        seedPhrase: seed,
-        password: "test",
-        salt: "testsalt"
-      },
-      function (err:Error, keystore:any) {
-
-        lw = keystore
-        lw.keyFromPassword("test", function(e:Error,k:string) {
-          keyFromPw = k
-
-          lw.generateNewAddress(keyFromPw, 20)
-          acct = lw.getAddresses() // without 0x
-          acct.sort()
-          done()
-        })
-      })
-  })
+  // before((done) => {
+  //
+  //   let seed = "pull rent tower word science patrol economy legal yellow kit frequent fat"
+  //
+  //   lightwallet.keystore.createVault(
+  //     {hdPathString: "m/44'/60'/0'/0",
+  //       seedPhrase: seed,
+  //       password: "test",
+  //       salt: "testsalt"
+  //     },
+  //     function (err:Error, keystore:any) {
+  //
+  //       lw = keystore
+  //       lw.keyFromPassword("test", function(e:Error,k:string) {
+  //         keyFromPw = k
+  //
+  //         lw.generateNewAddress(keyFromPw, 20)
+  //         acct = lw.getAddresses() // without 0x
+  //         acct.sort()
+  //         done()
+  //       })
+  //     })
+  // })
 
   it("sender must be rich", async () => {
     const instance = await SendSomeEth.deployed()
@@ -177,14 +174,14 @@ contract('SendSomeEth', function(accounts:string[]) {
     assert.equal(bal.toString(), "0", "We should not have: "+bal.toString())
   })
 
-  it("should succeed sending the contract ether because its payable", async () => {
-    const wei = web3.toWei('0.1', 'ether')
-    await web3.eth.sendTransaction({
-      from: accounts[0], to: acct[0], value: wei, //gasPrice: web3.toWei(new BigNumber(0.01), 'ether'),
-    })
-    const bal = web3.eth.getBalance(web3.eth.coinbase)
-    assert.equal(bal.toString() !== '0', true, "We should have sent ether")
-  })
+  // it("should succeed sending the contract ether because its payable", async () => {
+  //   const wei = web3.toWei('0.1', 'ether')
+  //   await web3.eth.sendTransaction({
+  //     from: accounts[0], to: acct[0], value: wei, //gasPrice: web3.toWei(new BigNumber(0.01), 'ether'),
+  //   })
+  //   const bal = web3.eth.getBalance(web3.eth.coinbase)
+  //   assert.equal(bal.toString() !== '0', true, "We should have sent ether")
+  // })
 
   describe("3 signers, threshold 2", () => {
 

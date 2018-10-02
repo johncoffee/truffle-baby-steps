@@ -4,24 +4,24 @@
   "description": "This is a framework for getting started with Solidity, deployment of contracts, and unit testing. Basically what Truffle  does best.",
   "main": "index.js",
   "dependencies": {
+    "bignumber.js": "7.2.1",
+    "fs-extra": "7.0.0"
+  },
+  "devDependencies": {
     "@types/chai": "4.1.4",
     "@types/fs-extra": "5.0.4",
     "@types/mocha": "5.2.5",
     "@types/node": "10.9.4",
-    "bignumber.js": "7.2.1",
-    "eth-lightwallet": "3.0.1",
-    "fs-extra": "7.0.0",
     "ganache-cli": "6.1.8",
-    "left-pad": "1.3.0",
-    "solidity-sha3": "0.4.1",
     "truffle-typings": "1.0.3",
-    "typechain": "0.3.5",
-    "typescript": "3.0.3"
+    "typechain": "^0.3.5",
+    "typescript": "^3.1.1"
   },
   "scripts": {
-    "build": "cd truffle; truffle compile && npm run type-contracts && npm run compile-tests",
+    "test": "npm run build && cd ethereum/ && truffle test",
+    "build": "npm run compile-tests && cd ethereum/ && truffle compile && npm run type-contracts",
     "ganache": "node node_modules/ganache-cli/build/cli.node.js -p 7545",
-    "type-contracts": "cd truffle; node ../node_modules/typechain/dist/cli/cli.js --target truffle --outDir build/contract-interfaces \"./build/**/*.json\"",
+    "type-contracts": "cd ethereum; node ../node_modules/typechain/dist/cli/cli.js --target=truffle --outDir=build/contract-interfaces \"./build/**/*.json\"",
     "compile-tests": "node node_modules/typescript/bin/tsc --project ./truffle/ -p ./tsconfig.json",
     "compile-tools": "node node_modules/typescript/bin/tsc --project ./tools/ -p ./tsconfig.json"
   },
