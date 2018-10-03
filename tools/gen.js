@@ -31,7 +31,7 @@ module.exports = deployContract
 const testTsTpl = `
 const ${normalizedName} = artifacts.require("${normalizedName}")
 
-contract('${normalizedName}', function(accounts) {
+contract('${normalizedName}', ([deployer, acc1]) => {
 
   it("should ", async () => {
     const instance = await ${normalizedName}.deployed()
