@@ -35,8 +35,8 @@ contract('${normalizedName}', function(accounts) {
 
   it("should ", async () => {
     const instance = await ${normalizedName}.deployed()
-    // const a = await instance.fieldName.call()
-    // assert.equal(a, b, "")
+    // const a = await instance.someMethod()
+    // assert.equal(a, b, "should")
   })
 
 })
