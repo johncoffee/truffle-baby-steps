@@ -42,16 +42,16 @@ contract('${normalizedName}', function(accounts) {
 })
 `.trim();
 const testSolTpl = ``;
-const migDir = path_1.join(__dirname, "../", 'truffle/migrations');
+const migDir = path_1.join(__dirname, "../", 'ethereum/migrations');
 // @ts-ignore
 async function fun() {
     const files = await fs_extra_1.readdir(migDir);
-    const solPath = path_1.join(__dirname, "../", 'truffle/contracts', inputName + '.sol');
-    const tsTestPath = path_1.join(__dirname, "../", 'truffle/test', inputName + '.test.ts');
-    const solTestPath = path_1.join(__dirname, "../", 'truffle/test', inputName + '.test.sol');
+    const solPath = path_1.join(__dirname, "../", 'ethereum/contracts', inputName + '.sol');
+    const tsTestPath = path_1.join(__dirname, "../", 'ethereum/test', inputName + '.test.ts');
+    const solTestPath = path_1.join(__dirname, "../", 'ethereum/test', inputName + '.test.sol');
     files.sort();
     if (command === "create" || command === "mk") {
-        const migPath = path_1.join(__dirname, "../", 'truffle/migrations', (parseInt(files[files.length - 1], 10) + 1) + "_" + inputName + '.js');
+        const migPath = path_1.join(__dirname, "../", 'ethereum/migrations', (parseInt(files[files.length - 1], 10) + 1) + "_" + inputName + '.js');
         fs_extra_1.writeFile(migPath, migrationTpl);
         fs_extra_1.writeFile(solPath, solContractTpl);
         fs_extra_1.writeFile(tsTestPath, testTsTpl);
@@ -59,7 +59,7 @@ async function fun() {
     else if (command === "rm") {
         const toDelete = files.find(file => file.includes(inputName));
         if (toDelete) {
-            const migPath = path_1.join(__dirname, "../", 'truffle/migrations', toDelete);
+            const migPath = path_1.join(__dirname, "../", 'ethereum/migrations', toDelete);
             if (await fs_extra_1.pathExists(migPath)) {
                 fs_extra_1.remove(migPath);
             }
