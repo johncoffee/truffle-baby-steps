@@ -66,6 +66,7 @@ async function fun() {
         }
         fs_extra_1.remove(solPath);
         fs_extra_1.remove(tsTestPath);
+        fs_extra_1.remove(tsTestPath.replace(".ts", ".js"));
         fs_extra_1.remove(solTestPath);
     }
 }

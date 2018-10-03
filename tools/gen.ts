@@ -79,6 +79,7 @@ async function fun() {
 
     remove(solPath)
     remove(tsTestPath)
+    remove(tsTestPath.replace(".ts", ".js"))
     remove(solTestPath)
   }
 }
