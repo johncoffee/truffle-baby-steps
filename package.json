@@ -18,12 +18,15 @@
     "typescript": "3.0.3"
   },
   "scripts": {
-    "test": "npm run build && cd ethereum/ && truffle test",
-    "build": "npm run compile-tests && cd ethereum/ && truffle compile && npm run type-contracts",
+    "test-repo": "npm run clear && npm i && npm run build && npm test",
+    "test": "cd ethereum; truffle test",
+    "build": "cd ethereum; truffle compile && npm run type-contracts && npm run compile-tests",
     "ganache": "node node_modules/ganache-cli/build/cli.node.js -p 7545",
     "type-contracts": "cd ethereum; node ../node_modules/typechain/dist/cli/cli.js --target=truffle --outDir=build/contract-interfaces \"./build/**/*.json\"",
-    "compile-tests": "node node_modules/typescript/bin/tsc --project ./truffle/ -p ./tsconfig.json",
-    "compile-tools": "node node_modules/typescript/bin/tsc --project ./tools/ -p ./tsconfig.json"
+    "compile-tests": "node node_modules/typescript/bin/tsc --project ./ethereum/ -p ./tsconfig.json",
+    "compile-tools": "node node_modules/typescript/bin/tsc --project ./tools/ -p ./tsconfig.json",
+    "reset": "git clean -dfx -e .idea -e node_modules",
+    "clear": "git clean -dfx -e .idea"
   },
   "repository": {
     "type": "git",
