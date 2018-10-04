@@ -25,7 +25,8 @@ Start a local blockchain using Ganache `npm run ganache` (short for `node node_m
 
 When you have added new/changed tests:
   1. Enter the `/ethereum` folder
-  2. `truffle compile` to see if the Solidity compiles..
+  2. `truffle compile` to see if the Solidity compiles   
+    a. Pro tip: Set up WebStorm to watch the files and execute `truffle compile` on file changes
   3. Make sure the typescript compiles `typechain --target=truffle --outDir=./build "build/contracts/**/*.json"`
   4. `truffle migrate --reset` to deploy contracts
   5. `truffle test` to run the tests
