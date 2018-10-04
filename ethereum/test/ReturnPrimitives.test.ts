@@ -34,5 +34,14 @@ contract('ReturnPrimitives', ([deployer, acc1]) => {
     assert.equal(byte1Val.toString(), "0x42", "expected a str for bytes")
   })
 
+  it("should return an address", async () => {
+    const instance = await ReturnPrimitives.deployed()
+    const [addr1, addr2, addr3] = await instance.giveAddressAndBytes()
 
+    assert.lengthOf(addr1, 42, "addr1 should have length")
+    assert.lengthOf(addr2, 42, "addr2 should have length")
+    assert.lengthOf(addr3, 42, "addr3 should have length")
+
+    assert.equal(addr1, "0x00000000000000000000000000017dfcdece4000", "Should have this value")
+  })
 })
