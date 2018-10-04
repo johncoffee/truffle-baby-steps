@@ -19,4 +19,6 @@ contract Balance {
         address c = this; // contract have a .balance property
         return c.balance;
     }
+
+    function () public payable {}
 }

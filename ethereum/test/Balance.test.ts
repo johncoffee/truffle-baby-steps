@@ -1,6 +1,8 @@
+import BigNumber from 'bignumber.js'
+
 const Balance = artifacts.require("./Balance.sol")
 
-contract('Balance', function(accounts:string[]) {
+contract('Balance', ([deployer]) => {
 
   it("sender must be rich!", async () => {
     const instance = await Balance.deployed()
@@ -12,5 +14,24 @@ contract('Balance', function(accounts:string[]) {
     const instance = await Balance.deployed()
     const bal = await instance.getThisBalance()
     assert.equal(bal.toString(), "0", "We should not have: "+bal.toString())
+  })
+
+  it("should send some ether", async () => {
+    const instance = await Balance.deployed()
+
+    const targetWei = new BigNumber(10000)
+
+    const beforePromise = web3.eth.getBalance(deployer)
+
+    await web3.eth.sendTransaction({
+      from: deployer, to: instance.address, value: targetWei.toString(),
+    })
+
+    const [before, after, bal] = await Promise.all([beforePromise, web3.eth.getBalance(deployer), web3.eth.getBalance(instance.address)])
+
+    assert.equal(targetWei.toString(), bal.toString(), "There should be 10000 wei here")
+
+    // I'm lazy here
+    assert.isTrue(before.gt(after), "Deployer account should have lost some dought")
   })
 })
