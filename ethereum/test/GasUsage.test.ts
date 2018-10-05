@@ -23,4 +23,16 @@ contract('GasUsage', ([deployer, acc1]) => {
     assert.isAtLeast((res as any).receipt.blockNumber, 1, "should be included in a block")
   })
 
+  it("should be expensive", async () => {
+    const instance = await GasUsage.deployed()
+
+    const buffer = new Int8Array(2 * 2 ** 10) // 2 KB
+    const txRes = await instance.setGreeting(buffer.fill("a".charCodeAt(0)).join())
+
+    // TODO fix type-washing
+    // console.log((txRes as any).receipt.gasUsed, 1, "should use gas") // 4300411
+    assert.isAtLeast((txRes as any).receipt.gasUsed, 1, "should use gas")
+    assert.isAtLeast((txRes as any).receipt.blockNumber, 1, "should be included in a block")
+  })
+
 })
