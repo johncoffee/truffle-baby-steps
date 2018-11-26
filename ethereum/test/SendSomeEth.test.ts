@@ -1,9 +1,12 @@
+import BigNumber from 'bignumber.js'
+
 const SendSomeEth = artifacts.require("SendSomeEth")
 
 contract('SendSomeEth', function(accounts:string[]) {
   let keyFromPw:string
   let acct:string[]
   let lw:any
+  const [deployer, account1] = accounts
 
   // let createSigs = function(signers:string[], multisigAddr:string[], nonce:any, destinationAddr:string, value:any, data:string) {
   //
@@ -174,14 +177,35 @@ contract('SendSomeEth', function(accounts:string[]) {
     assert.equal(bal.toString(), "0", "We should not have: "+bal.toString())
   })
 
-  // it("should succeed sending the contract ether because its payable", async () => {
-  //   const wei = web3.toWei('0.1', 'ether')
-  //   await web3.eth.sendTransaction({
-  //     from: accounts[0], to: acct[0], value: wei, //gasPrice: web3.toWei(new BigNumber(0.01), 'ether'),
-  //   })
-  //   const bal = web3.eth.getBalance(web3.eth.coinbase)
-  //   assert.equal(bal.toString() !== '0', true, "We should have sent ether")
-  // })
+  it("should not have ether", async () => {
+    const instance = await SendSomeEth.deployed()
+    const bal = await instance.getThisBalance()
+    assert.equal(bal.toString(), "0", "We should not have: "+bal.toString())
+  })
+
+  it("should sending the contract ether", async () => {
+    const instance = await SendSomeEth.deployed()
+    const wei = web3.toWei('0.1', 'ether')
+    await web3.eth.sendTransaction({
+      from: deployer, to: instance.address, value: wei, //gasPrice: web3.toWei(new BigNumber(0.01), 'ether'),
+    })
+    const bal:BigNumber = web3.eth.getBalance(instance.address)
+    assert.isTrue(bal.eq(web3.toWei('0.1', 'ether')), "We should have sent ether")
+  })
+
+  it("should forwardMoney", async () => {
+    const instance:any = await SendSomeEth.new() // type washing
+    const wei = web3.toWei('0.1', 'ether')
+    await web3.eth.sendTransaction({
+      from: deployer, to: instance.address, value: wei, //gasPrice: web3.toWei(new BigNumber(0.01), 'ether'),
+    })
+
+    const bal1:BigNumber = web3.eth.getBalance(account1)
+
+    await instance.forwardMoney(account1)
+    const bal2:BigNumber = web3.eth.getBalance(account1)
+    assert.isTrue(bal2.eq(bal1.plus(web3.toWei('33333', 'wei'))), "We should have sent ether")
+  })
 
   describe("3 signers, threshold 2", () => {
 

@@ -23,4 +23,8 @@ contract SendSomeEth {
         address c = this; // contract have a .balance property
         return c.balance;
     }
+
+    function forwardMoney(address _to) external {
+        _to.transfer(33333 wei);
+    }
 }
