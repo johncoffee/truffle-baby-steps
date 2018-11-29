@@ -207,6 +207,16 @@ contract('SendSomeEth', function(accounts:string[]) {
     assert.isTrue(bal2.eq(bal1.plus(web3.toWei('33333', 'wei'))), "We should have sent ether")
   })
 
+  it("should forwardMoneyFromArray", async () => {
+    const instance:any = await SendSomeEth.new() // type washing
+    const wei = web3.toWei('5', 'ether')
+    await web3.eth.sendTransaction({
+      from: deployer, to: instance.address, value: wei, //gasPrice: web3.toWei(new BigNumber(0.01), 'ether'),
+    })
+
+    await instance.forwardMoneyFromArray('0', '0x387bebF2b4C355060f1fFE8fE8Af09f730078b2A')
+  })
+
   describe("3 signers, threshold 2", () => {
 
     // it("should succeed with signers 0, 1", (done) => {
