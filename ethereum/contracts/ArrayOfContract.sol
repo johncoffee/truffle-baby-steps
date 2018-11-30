@@ -1,4 +1,4 @@
-pragma solidity ^0.4.4;
+pragma solidity ^0.4.24;
 
 contract SimpleJoe {
     uint public answer = 42;
