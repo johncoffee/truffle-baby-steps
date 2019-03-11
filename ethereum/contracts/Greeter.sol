@@ -11,7 +11,7 @@ contract Greeter
         greeting = _greeting;
     }
 
-    function greet() public constant returns (string)
+    function greet() public view returns (string)
     {
         return greeting;
     }

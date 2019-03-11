@@ -30,17 +30,17 @@ contract ArrayGetSetter {
         return;
     }
 
-    function getArraySettingResult() constant returns (int8)
+    function getArraySettingResult() view returns (int8)
     {
         return setarraysuccessful;
     }
 
-    function getArray() constant returns (uint8[10])  // NOTE 3 see below
+    function getArray() view returns (uint8[10])  // NOTE 3 see below
     {
         return integers;
     }
 
-    function getValue(uint8 x) constant returns (uint8)
+    function getValue(uint8 x) view returns (uint8)
     {
         return integers[x];
     }

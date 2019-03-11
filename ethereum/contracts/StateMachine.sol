@@ -73,7 +73,7 @@ contract StateMachine {
         }
     }
 
-    function getNextState() public constant returns(bytes32 stateId) {
+    function getNextState() public view returns(bytes32 stateId) {
         State storage st = states[currentStateId];
         return st.nextStateId;
     }
