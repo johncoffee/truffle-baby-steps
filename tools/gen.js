@@ -10,7 +10,7 @@ console.debug(command, inputName);
 console.assert(inputName, "Please provide a contract name, eg. 01_HelloWorld");
 const normalizedName = inputName.replace(/^[\d_]+/, '');
 const solContractTpl = `
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.0;
 
 contract ${normalizedName} {
     
