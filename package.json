@@ -26,9 +26,7 @@
     "type-contracts": "cd ethereum; node ../node_modules/typechain/dist/cli/cli.js --target=truffle --outDir=build/contract-interfaces \"./build/**/*.json\"",
     "compile-tests": "node node_modules/typescript/bin/tsc --project ./ethereum/ -p ./tsconfig.json",
     "compile-tools": "node node_modules/typescript/bin/tsc --project ./tools/ -p ./tsconfig.json",
-    "reset": "git clean -dfx -e .idea -e node_modules",
-    "clear": "git clean -dfx -e .idea",
-    "gen": "node tools/gen.js"
+    "clear": "git clean -dfx -e .idea"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,4 @@
-import BigNumber from 'bignumber.js'
-import { ArrayGetSetterInstance } from '../build/contract-interfaces'
+import { ArrayGetSetterInstance } from '../build/contract-interfaces/index'
 
 const ArrayGetSetter = artifacts.require("ArrayGetSetter")
 
@@ -10,9 +9,10 @@ contract('ArrayGetSetter', ([deployer, acc1]) => {
     instance = await ArrayGetSetter.new()
   })
 
-  it('should deploy', async () => {
-    const arr:BigNumber[] = await instance.getArray()
+  it('should return an array of numbers', async () => {
+    const arr = await instance.getArray()
     assert.isTrue(arr instanceof Array, 'should get an array')
+    assert.isTrue(arr[0].eq(arr[1]), 'there should be ones in the array')
   })
 
   // const greetingText = "Hello ethereum"

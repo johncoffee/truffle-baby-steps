@@ -1,4 +1,4 @@
-import { BytesInstance } from '../build/contract-interfaces'
+import { BytesInstance } from '../build/contract-interfaces/index'
 
 const Bytes = artifacts.require("./Bytes")
 
@@ -13,7 +13,7 @@ contract('Some bytes tests', ([deployer]) => {
       .setStatus("2", randomBytes)
 
     const res = await instance.status("2")
-    const res2 = await instance.getStatus.call("2")
+    const res2 = await instance.getStatus("2")
 
     assert.equal(res2, randomBytes, "problem with saving")
     assert.equal(res, randomBytes, "problem with saving")
@@ -27,7 +27,7 @@ contract('Some bytes tests', ([deployer]) => {
     await instance
       .setStatus(idx, randomBytes)
 
-    const res2 = await instance.getNotEmpty.call(idx)
+    const res2 = await instance.getNotEmpty(idx)
     assert.equal(res2, randomBytes, "problem with saving")
 
   })

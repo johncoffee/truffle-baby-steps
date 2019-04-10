@@ -1,4 +1,4 @@
-import { ArrayOfContractInstance } from '../build/contract-interfaces'
+import { ArrayOfContractInstance } from '../build/contract-interfaces/index'
 
 const ArrayOfContract = artifacts.require("ArrayOfContract")
 const SimpleJoe = artifacts.require("SimpleJoe")
@@ -14,7 +14,7 @@ contract('ArrayOfContract', () => {
     const joe = await SimpleJoe.new()
     const address1:string = (joe as any).address
     await instance.add(address1)
-    const address2:string = await instance.list.call(0)
+    const address2:string = await instance.list(0)
     assert.strictEqual(address1, address2)
   })
 
