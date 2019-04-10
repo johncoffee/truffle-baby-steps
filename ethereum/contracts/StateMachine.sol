@@ -1,4 +1,4 @@
-pragma solidity 0.4.24;
+pragma solidity ^0.5.0;
 
 contract StateMachine {
 
@@ -48,14 +48,14 @@ contract StateMachine {
         }
     }
 
-    function getCurrentStateId() view public returns(bytes32) {
+    function getCurrentStateId() public view returns(bytes32) {
         return currentStateId;
     }
 
 
     /// @dev Setup the state machine with the given states.
     /// @param _stateIds Array of state ids.
-    function setStates(bytes32[6] _stateIds) internal {
+    function setStates(bytes32[6] memory _stateIds) view internal {
         require(_stateIds.length > 0);
         require(currentStateId == 0);
 

@@ -12,7 +12,7 @@ contract BasicIterator {
         }
     }
 
-    function getSum() external view returns (uint8 memory) // if its not external, it will not be found in the javascript representation
+    function getSum() external view returns (uint8) // if its not external, it will not be found in the javascript representation
     {
         uint8 sum = 0;
         uint8 x = 0;

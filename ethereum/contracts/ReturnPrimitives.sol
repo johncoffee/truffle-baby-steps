@@ -6,7 +6,7 @@ contract ReturnPrimitives {
     {
     }
 
-    function giveString() public pure returns(string _theAnswer) {
+    function giveString() public pure returns(string memory _theAnswer) {
         return "theAnswer";
     }
 
@@ -18,7 +18,7 @@ contract ReturnPrimitives {
         return -42;
     }
 
-    function giveThreeValues() public pure returns(uint _one, string _two, bytes1 _three) {
+    function giveThreeValues() public pure returns(uint _one, string memory _two, bytes1 _three) {
         return (1, "a", 0x42);
     }
 
