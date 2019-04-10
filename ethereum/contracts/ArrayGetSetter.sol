@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.0;
 
 contract ArrayGetSetter {
 
@@ -17,7 +17,7 @@ contract ArrayGetSetter {
         }
     }
 
-    function setArray(uint8[10] incoming)  // NOTE 2 see below. Also, use enough gas.
+    function setArray(uint8[10] memory incoming)  // NOTE 2 see below. Also, use enough gas.
     {
         setarraysuccessful = 0;
         uint8 x = 0;
@@ -35,7 +35,7 @@ contract ArrayGetSetter {
         return setarraysuccessful;
     }
 
-    function getArray() view returns (uint8[10])  // NOTE 3 see below
+    function getArray() view returns (uint8[10] memory)  // NOTE 3 see below
     {
         return integers;
     }

@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.0;
 
 contract GasUsage {
 
@@ -8,7 +8,7 @@ contract GasUsage {
     {
     }
 
-    function setGreeting(string _greeting) public {
+    function setGreeting(string memory _greeting) public {
         greeting = _greeting;
     }
 }
