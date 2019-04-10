@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.0;
 
 contract SendSomeEth {
     address public owner;
@@ -21,12 +21,12 @@ contract SendSomeEth {
         // contract is payable
     }
 
-    function getOwnersBalance() external constant returns (uint)
+    function getOwnersBalance() external view returns (uint)
     {
         return owner.balance;
     }
 
-    function getThisBalance() external constant returns (uint)
+    function getThisBalance() external view returns (uint)
     {
         address c = this; // contract have a .balance property
         return c.balance;

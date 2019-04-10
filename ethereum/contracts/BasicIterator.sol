@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.0;
 
 contract BasicIterator {
 
@@ -12,7 +12,7 @@ contract BasicIterator {
         }
     }
 
-    function getSum() external constant returns (uint8) // if its not external, it will not be found in the javascript representation
+    function getSum() external view returns (uint8) // if its not external, it will not be found in the javascript representation
     {
         uint8 sum = 0;
         uint8 x = 0;
@@ -24,7 +24,7 @@ contract BasicIterator {
         return sum;
     }
 
-    function getNumberAt(uint8 _idx) external constant returns (uint8) // if its not external, it will not be found in the javascript representation
+    function getNumberAt(uint8 _idx) external view returns (uint8) // if its not external, it will not be found in the javascript representation
     {
         return integers[_idx];
     }

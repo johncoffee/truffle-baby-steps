@@ -1,22 +1,22 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.0;
 
 contract Greeter
 {
     address public creator;
     string public greeting;
 
-    constructor(string _greeting) public
+    constructor(string memory _greeting) public
     {
         creator = msg.sender;
         greeting = _greeting;
     }
 
-    function greet() public constant returns (string)
+    function greet() public view returns (string memory)
     {
         return greeting;
     }
 
-    function setGreeting(string _newgreeting) public
+    function setGreeting(string memory _newgreeting) public
     {
         greeting = _newgreeting;
     }

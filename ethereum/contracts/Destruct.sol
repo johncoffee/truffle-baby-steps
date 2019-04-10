@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.0;
 
 contract Destruct {
 
@@ -15,12 +15,11 @@ contract Destruct {
         creator = msg.sender;
     }
 
-    function setOwner() ownerOnly {
+    function setOwner() ownerOnly public {
         creator = msg.sender;
     }
 
-    function kill() ownerOnly
-    {
+    function kill() ownerOnly public {
         selfdestruct(msg.sender);    // kills this contract and sends remaining funds back to creator
     }
 
