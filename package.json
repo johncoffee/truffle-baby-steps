@@ -16,7 +16,7 @@
     "ganache-cli": "^6.4.1",
     "truffle-typings": "^1.0.6",
     "typechain": "^0.3.11",
-    "typescript": "^3.3.3333"
+    "typescript": "^3.4.0"
   },
   "scripts": {
     "test-repo": "npm run clear && npm i && npm run build && npm test",
