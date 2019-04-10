@@ -32,6 +32,6 @@ contract('Balance', ([deployer]) => {
     assert.equal(targetWei.toString(), bal.toString(), "There should be 10000 wei here")
 
     // I'm lazy here
-    assert.isTrue(before.gt(after), "Deployer account should have lost some dought")
+    assert.isTrue(new BigNumber(before).gt(after), "Deployer account should have lost some dought")
   })
 })

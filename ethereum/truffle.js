@@ -51,6 +51,8 @@ module.exports = {
     // },
   },
 
+  test_file_extension_regexp: /.*\.test\.js$/,
+
   solc: {
     optimizer: {
       enabled: false,

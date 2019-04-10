@@ -5,7 +5,7 @@ contract('NotPayable', function(accounts:string[]) {
   it("should fail sending the contract ether because its NOT payable", async () => {
     const instance = await NotPayable.deployed()
 
-    const wei = web3.toWei('0.1', 'ether')
+    const wei = web3.utils.toWei('0.1', 'ether')
 
     let msg:string = ''
     try {

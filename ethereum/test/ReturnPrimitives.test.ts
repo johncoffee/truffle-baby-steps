@@ -27,21 +27,20 @@ contract('ReturnPrimitives', ([deployer, acc1]) => {
   it("should return multiple values as an array", async () => {
     const instance = await ReturnPrimitives.deployed()
     const res = await instance.giveThreeValues()
-    assert.isArray(res, "expected an array of return-values")
-    const [uintVal, stringVal, byte1Val] = res
-    assert.isTrue(uintVal.eq(1), "expected a BigNumber")
+    const [uintVal, stringVal, byte1Val] = Object.values(res)
+    assert.equal(uintVal, '1', "expected a BigNumber")
     assert.isString(stringVal, "expected a str")
     assert.equal(byte1Val.toString(), "0x42", "expected a str for bytes")
   })
 
   it("should return an address", async () => {
     const instance = await ReturnPrimitives.deployed()
-    const [addr1, addr2, addr3] = await instance.giveAddressAndBytes()
-
+    const res = await instance.giveAddressAndBytes()
+    const [addr1, addr2, addr3] = Object.values(res)
     assert.lengthOf(addr1, 42, "addr1 should have length")
     assert.lengthOf(addr2, 42, "addr2 should have length")
     assert.lengthOf(addr3, 42, "addr3 should have length")
 
-    assert.equal(addr1, "0x00000000000000000000000000017dfcdece4000", "Should have this value")
+    assert.equal(addr1.toLowerCase(), "0x00000000000000000000000000017dfcdece4000", "Should have this value")
   })
 })

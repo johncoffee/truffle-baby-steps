@@ -1,5 +1,7 @@
 import BigNumber from 'bignumber.js'
 
+declare const web3:Web3
+
 const SendSomeEth = artifacts.require("SendSomeEth")
 
 contract('SendSomeEth', function(accounts:string[]) {
@@ -185,31 +187,31 @@ contract('SendSomeEth', function(accounts:string[]) {
 
   it("should sending the contract ether", async () => {
     const instance = await SendSomeEth.deployed()
-    const wei = web3.toWei('0.1', 'ether')
+    const wei = web3.utils.toWei('0.1', 'ether')
     await web3.eth.sendTransaction({
       from: deployer, to: instance.address, value: wei, //gasPrice: web3.toWei(new BigNumber(0.01), 'ether'),
     })
-    const bal:BigNumber = web3.eth.getBalance(instance.address)
-    assert.isTrue(bal.eq(web3.toWei('0.1', 'ether')), "We should have sent ether")
+    const bal = await web3.eth.getBalance(instance.address)
+    assert.equal(bal.toString(), web3.utils.toWei('0.1', 'ether'), "We should have sent ether")
   })
 
   it("should forwardMoney", async () => {
     const instance:any = await SendSomeEth.new() // type washing
-    const wei = web3.toWei('0.1', 'ether')
+    const wei = web3.utils.toWei('0.1', 'ether')
     await web3.eth.sendTransaction({
       from: deployer, to: instance.address, value: wei, //gasPrice: web3.toWei(new BigNumber(0.01), 'ether'),
     })
 
-    const bal1:BigNumber = web3.eth.getBalance(account1)
+    const bal1:string = await web3.eth.getBalance(account1)
 
     await instance.forwardMoney(account1)
-    const bal2:BigNumber = web3.eth.getBalance(account1)
-    assert.isTrue(bal2.eq(bal1.plus(web3.toWei('33333', 'wei'))), "We should have sent ether")
+    const bal2:string = await web3.eth.getBalance(account1)
+    assert.strictEqual(parseInt(bal2), parseInt(bal1) + 33333, "We should have sent ether")
   })
 
   it("should forwardMoneyFromArray", async () => {
     const instance:any = await SendSomeEth.new() // type washing
-    const wei = web3.toWei('5', 'ether')
+    const wei = web3.utils.toWei('5', 'ether')
     await web3.eth.sendTransaction({
       from: deployer, to: instance.address, value: wei, //gasPrice: web3.toWei(new BigNumber(0.01), 'ether'),
     })
