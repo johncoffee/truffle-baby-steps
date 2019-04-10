@@ -1,7 +1,5 @@
 import BigNumber from 'bignumber.js'
 
-declare const web3:Web3
-
 const SendSomeEth = artifacts.require("SendSomeEth")
 
 contract('SendSomeEth', function(accounts:string[]) {

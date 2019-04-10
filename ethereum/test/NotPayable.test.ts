@@ -1,6 +1,6 @@
 const NotPayable = artifacts.require("NotPayable")
 
-contract('NotPayable', function(accounts:string[]) {
+contract('NotPayable', function([deployer]) {
 
   it("should fail sending the contract ether because its NOT payable", async () => {
     const instance = await NotPayable.deployed()
@@ -10,7 +10,7 @@ contract('NotPayable', function(accounts:string[]) {
     let msg:string = ''
     try {
       await web3.eth.sendTransaction({
-        from: web3.eth.coinbase, to: (instance as any).address, value: wei,
+        from: deployer, to: (instance as any).address, value: wei,
       })
     }
     catch (e) {

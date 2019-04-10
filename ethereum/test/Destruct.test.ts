@@ -24,7 +24,7 @@ contract('Destruct', ([deployer, acc1]) => {
     const deadContractBalance = await web3.eth.getBalance(instance.address)
     assert.strictEqual(deadContractBalance, '0', "should have 0 ether after kill()")
 
-    const afterKill:BigNumber = await web3.eth.getBalance(deployer)
+    const afterKill:string = await web3.eth.getBalance(deployer)
     assert.isTrue( new BigNumber(startBalance).gt( afterKill) , "Should have spent some dough on gas while running kill()")
 
     // console.log("after . . . .", afterKill.toString())
