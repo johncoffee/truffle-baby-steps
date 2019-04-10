@@ -32,13 +32,16 @@ contract ReturnPrimitives {
         uint someNumbers = 420000000000000;
         address addr1 = address(someNumbers);
 
-        bytes20 someBytes = 0xf6d5e1d56f56677888f5f441122483f6ff00;
-        address addr2 = address(someBytes);
+//        No longer possible
+//        bytes20 someBytes = 0xf6d5e1d56f56677888f5f441122483f6ff00;
+//        address addr2 = address(someBytes);
+         address addr2;
 
-        address addr2Alias = address(bytes20(0xf6d5e1d56f56677888f5f441122483f6ff00)); // one-liner hardcoded address
-        require(addr2Alias == addr2, "These two should be the same");
+//        No longer possible
+//        address addr2Alias = address(bytes20(0xf6d5e1d56f56677888f5f441122483f6ff00)); // one-liner hardcoded address
+//        require(addr2Alias == addr2, "These two should be the same");
 
-        address addr3 = this;
+        address addr3 = address(this);
 
         return (addr1, addr2, addr3);
     }

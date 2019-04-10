@@ -23,6 +23,6 @@ contract Destruct {
         selfdestruct(msg.sender);    // kills this contract and sends remaining funds back to creator
     }
 
-    function() payable public {
+    function() payable external {
     }
 }

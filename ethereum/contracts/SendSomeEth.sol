@@ -16,7 +16,7 @@ contract SendSomeEth {
 
     }
 
-    function() public payable
+    function() payable external
     {
         // contract is payable
     }
@@ -28,15 +28,15 @@ contract SendSomeEth {
 
     function getThisBalance() external view returns (uint)
     {
-        address c = this; // contract have a .balance property
+        address c = address(this); // contract have a .balance property
         return c.balance;
     }
 
-    function forwardMoney(address _to) external {
+    function forwardMoney(address payable _to) external {
         _to.transfer(33333 wei);
     }
 
-    function forwardMoneyFromArray(uint pos, address other) external {
+    function forwardMoneyFromArray(uint pos, address payable other) external {
         uint money = payments[pos];
         other.transfer(money);
         payments[pos] = 0;

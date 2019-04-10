@@ -6,10 +6,6 @@ contract NotPayable {
     {
     }
 
-    function() private {
-        // should throw an error if called
-    }
-
     function ReturnMeGas() public payable {
         revert("Return me gas.");
     }

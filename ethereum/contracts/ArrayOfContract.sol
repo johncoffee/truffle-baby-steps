@@ -22,14 +22,14 @@ contract ArrayOfContract {
         list.push(joe);
     }
 
-    function removeLast() public
-//    returns(SimpleJoe)
-    {
-//        SimpleJoe storage joe = list[list.length-1];
-//        list.pop(); // solidity 0.5
-    }
+//    function removeLast() public
+////    returns(SimpleJoe)
+//    {
+////        SimpleJoe storage joe = list[list.length-1];
+////        list.pop(); // solidity 0.5
+//    }
 
-    function countJoes() public returns (uint) {
+    function countJoes() public view returns (uint) {
         return list.length;
     }
 }

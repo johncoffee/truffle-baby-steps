@@ -15,12 +15,12 @@ contract Bytes {
         status[idx] = _status;
     }
 
-    function getStatus(uint idx) external returns(bytes32) {
+    function getStatus(uint idx) external view returns(bytes32) {
         bytes32 b = status[idx];
         return b;
     }
 
-    function getNotEmpty(uint idx) external returns(bytes32) {
+    function getNotEmpty(uint idx) external view returns(bytes32) {
         bytes32 b = status[idx];
         require(b != 0x0, "status was not set");
         return b;

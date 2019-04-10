@@ -16,9 +16,9 @@ contract Balance {
 
     function getThisBalance() external view returns (uint)
     {
-        address c = this; // contract have a .balance property
+        address c = address(this);
         return c.balance;
     }
 
-    function () public payable {}
+    function () payable external {}
 }
