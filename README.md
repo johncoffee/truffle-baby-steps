@@ -16,33 +16,28 @@ Because Truffle/web3.js is under heavy development, I've added CI to help visual
   2. Install the dependencies
     See [Installing](#Installing)
   3. Create a new contract and unit tests
-    a. Either do it manually by adding eg. `contracts/01_HelloWorld.sol` and `test/01_HelloWorld.test.js`
-    b. Or use my convenient tool eg. `node tools/gen.js 01_HelloWorld`
+    a. Add `contracts/HelloWorld.sol` and `test/HelloWorld.test.ts`
+    b. Use my convenient tool eg. `node tools/gen.js HelloWorld`
   4. Run it! See [The development loop](#The development loop)
 
 
 ## The development loop
 
-Start a local blockchain using Ganache `npm run ganache` (short for `node node_modules/ganache-cli/build/cli.node.js`)
+Start a local blockchain using Ganache `npm run ganache` 
 
 When you have added new/changed tests:
-  1. Enter the `/ethereum` folder
-  2. `truffle compile` to see if the Solidity compiles   
-    a. Pro tip: Set up WebStorm to watch the files and execute `truffle compile` on file changes
-  3. Make sure the typescript compiles `typechain --target=truffle --outDir=./build "build/contracts/**/*.json"`
-  4. `truffle migrate --reset` to deploy contracts
-  5. `truffle test` to run the tests
-
-After the contracts has been deployed you just need to write more javascript tests, and run `truffle test`
+  0. Try entering `ethereum/` and run `npx truffle` to see Truffles help menu appear
+  0. Write a new smart contract, place it in `ethereum/contracts`. Add a migration script in `migrations/` if the contract has constructor arguments
+  1. Run `npx truffle compile` to compile the solidity (in the `ethereum/` folder)
+  2. Only when the solidity compiles, you can build TypeScript interfaces for the contracts to be used in unit tests: `npm run type-contracts`
+  3. Write unit tests in TypeScript, have you editor compile it or run `npm run compile-tests` manually
+  4. Run `npx truffle test` to run Truffle unit tests (in the `ethereum/` folder)
 
 
 ## Installing 
 
   1. We need to install NodeJS and NPM
-  2. Install `truffle` globally 
-      a. Run `npm i -g truffle`
-
-It worked last time with truffle 4.1.14 and node 8.11.3 npm 5.6.0, typescript 3.0.3
+  2. Install the dependencies with `npm install` (no global dependencies required)
 
 
 # Dogma
