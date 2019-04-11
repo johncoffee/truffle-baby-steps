@@ -19,7 +19,6 @@
     "web3": "^1.0.0-beta.52"
   },
   "scripts": {
-    "test-repo": "npm run clear && npm i && npm run build && npm test",
     "test": "cd ethereum; truffle test",
     "build": "cd ethereum; truffle compile && npm run type-contracts && npm run compile-tests",
     "ganache": "ganache-cli -p 7545",
