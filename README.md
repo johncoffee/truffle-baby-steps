@@ -7,6 +7,11 @@ Basically what the [Truffle](http://truffleframework.com/) framework does best.
 The approach is the same as fiveogit's great repo [solidity-baby-steps](https://github.com/fivedogit/solidity-baby-steps)
 
 
+## Tmp. fix:
+
+In module `truffle-typings` you must comment-out `declare const web3: any;`
+
+
 # Let's learn some Solidity with the Truffle framework!
 
   1. Download/clone this code repository
