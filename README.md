@@ -21,6 +21,11 @@ Because Truffle/web3.js is under heavy development, I've added CI to help visual
   4. Run it! See [The development loop](#The development loop)
 
 
+## The case for typescript
+
+The web3.js and Truffle frameworks are very comprehensive in functionality, they wrap many other libraries, it is only rational to have your editor auto-complete and type-check as you write/learn. Types _are_ documentation; Self-explanatory code is easier to read up on, and navigate around in. The frameworks are under development at changes quite often, it is a great help to have TypeScript aid you when the APIs changes.
+
+
 ## The development loop
 
 Start a local blockchain using Ganache `npm run ganache` 
