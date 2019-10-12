@@ -23,8 +23,8 @@
     "build": "cd ethereum; truffle compile && npm run type-contracts && npm run compile-tests",
     "ganache": "ganache-cli -p 7545",
     "type-contracts": "cd ethereum; node ../node_modules/typechain/dist/cli/cli.js --target=truffle --outDir=build/contract-interfaces \"./build/**/*.json\"",
-    "compile-tests": "node node_modules/typescript/bin/tsc --project ./ethereum/ -p ./tsconfig.json",
-    "compile-tools": "node node_modules/typescript/bin/tsc --project ./tools/ -p ./tsconfig.json",
+    "compile-tests": "tsc --project ./ethereum/ -p ./tsconfig.json",
+    "compile-tools": "tsc --project ./tools/ -p ./tsconfig.json",
     "clear": "git clean -dfx -e .idea"
   },
   "repository": {
