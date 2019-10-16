@@ -1,6 +1,6 @@
 {
   "name": "truffle-baby-steps",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "This is a framework for getting started with Solidity, deployment of contracts, and unit testing. Basically what Truffle  does best.",
   "main": "index.js",
   "dependencies": {},
