@@ -19,6 +19,7 @@
     "web3": "^1.0.0-beta.52"
   },
   "scripts": {
+    "watch": "cd ethereum; nodemon --delay 0.77 -e js --exec 'truffle test'",
     "test": "cd ethereum; truffle test",
     "build": "cd ethereum; truffle compile && npm run type-contracts && npm run compile-tests",
     "ganache": "ganache-cli -p 7545",
@@ -37,5 +38,8 @@
   "bugs": {
     "url": "https://github.com/johncoffee/truffle-baby-steps/issues"
   },
-  "homepage": "https://github.com/johncoffee/truffle-baby-steps#readme"
+  "homepage": "https://github.com/johncoffee/truffle-baby-steps#readme",
+  "optionalDependencies": {
+    "nodemon": "^1.19.4"
+  }
 }
