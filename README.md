@@ -29,13 +29,13 @@ The web3.js and Truffle frameworks are very comprehensive in functionality, they
 
 Start a local blockchain using Ganache `npm run ganache` 
 
-When you have added new/changed tests:
-  0. Try entering `ethereum/` and run `npx truffle` to see Truffles help menu appear
-  0. Write a new smart contract, place it in `ethereum/contracts`. Add a migration script in `migrations/` if the contract has constructor arguments
-  1. Run `npx truffle compile` to compile the solidity (in the `ethereum/` folder)
-  2. Only when the solidity compiles, you can then build TypeScript interfaces for the contracts to be used in unit tests: `npm run type-contracts`
-  3. Write unit tests in TypeScript, have your favorite editor compile it, or run `npm run compile-tests` manually
-  4. Run `npx truffle test` to run Truffle unit tests (in the `ethereum` folder)
+The general way to develop and continously run the tests goes like this:
+  1. Try entering `ethereum/` and run `npx truffle` to see Truffles help menu appear, it should work
+  2. Place a new smart contract in `contracts/` eg. `HelloWorld.sol`
+  3. Run `npx truffle compile` to compile the solidity (in the `ethereum/` folder), fingers crossed it compiles!!?
+  4. When the solidity compiles, you can then build TypeScript interfaces: `npm run type-contracts`
+  5. Write unit tests in TypeScript, have your favorite editor compile it, or run `npm run compile-tests` manually
+  6. Run `npx truffle test` to run Truffle unit tests (in the `ethereum` folder)
 
 
 ## Installing 
