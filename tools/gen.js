@@ -6,7 +6,7 @@ const defaultCmd = "mk";
 const commands = [defaultCmd, 'create', 'rm'];
 const inputName = process.argv[3] || process.argv[2];
 const command = (commands.indexOf(process.argv[2]) === -1) ? defaultCmd : process.argv[2];
-console.debug(command, inputName);
+console.log(command, inputName);
 console.assert(inputName, "Please provide a contract name, eg. 01_HelloWorld");
 const normalizedName = inputName.replace(/^[\d_]+/, '');
 const solContractTpl = `
@@ -33,8 +33,11 @@ const ${normalizedName} = artifacts.require("${normalizedName}")
 
 contract('${normalizedName}', ([deployer, acc1]) => {
 
-  it("should ", async () => {
+  it("deployed with migration script", async () => {
     const instance = await ${normalizedName}.deployed()
+  })
+  it("new instance ", async () => {
+    const instance = await ${normalizedName}.new()
     // const a = await instance.someMethod()
     // assert.equal(a, b, "should")
   })
@@ -43,7 +46,6 @@ contract('${normalizedName}', ([deployer, acc1]) => {
 `.trim();
 const testSolTpl = ``;
 const migDir = path_1.join(__dirname, "../", 'ethereum/migrations');
-// @ts-ignore
 async function fun() {
     const files = await fs_extra_1.readdir(migDir);
     const solPath = path_1.join(__dirname, "../", 'ethereum/contracts', inputName + '.sol');
@@ -52,22 +54,27 @@ async function fun() {
     files.sort();
     if (command === "create" || command === "mk") {
         const migPath = path_1.join(__dirname, "../", 'ethereum/migrations', (parseInt(files[files.length - 1], 10) + 1) + "_" + inputName + '.js');
-        fs_extra_1.writeFile(migPath, migrationTpl);
-        fs_extra_1.writeFile(solPath, solContractTpl);
-        fs_extra_1.writeFile(tsTestPath, testTsTpl);
+        await Promise.all([
+            fs_extra_1.writeFile(migPath, migrationTpl),
+            fs_extra_1.writeFile(solPath, solContractTpl),
+            fs_extra_1.writeFile(tsTestPath, testTsTpl),
+        ]);
     }
     else if (command === "rm") {
         const toDelete = files.find(file => file.includes(inputName));
         if (toDelete) {
             const migPath = path_1.join(__dirname, "../", 'ethereum/migrations', toDelete);
             if (await fs_extra_1.pathExists(migPath)) {
-                fs_extra_1.remove(migPath);
+                await fs_extra_1.remove(migPath);
             }
         }
-        fs_extra_1.remove(solPath);
-        fs_extra_1.remove(tsTestPath);
-        fs_extra_1.remove(tsTestPath.replace(".ts", ".js"));
-        fs_extra_1.remove(solTestPath);
+        await Promise.all([
+            fs_extra_1.remove(solPath),
+            fs_extra_1.remove(tsTestPath),
+            fs_extra_1.remove(tsTestPath.replace(".ts", ".js")),
+            fs_extra_1.remove(solTestPath),
+        ]);
     }
+    console.log("Done");
 }
 fun();
