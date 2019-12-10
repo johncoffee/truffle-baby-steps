@@ -21,7 +21,7 @@
   "scripts": {
     "watch": "cd ethereum; nodemon --delay 0.77 -e js,sol --exec 'truffle test'",
     "test": "cd ethereum; truffle test",
-    "build": "tsc && cd ethereum; truffle compile && npm run type-contracts",
+    "build": "tsc ethereum/truffle-config.ts && cd ethereum; truffle compile && npm run type-contracts",
     "start": "ganache-cli",
     "type-contracts": "cd ethereum; typechain --target=truffle --outDir=build/contract-interfaces \"./build/**/*.json\"",
     "clean": "git clean -dfxn --exclude .idea ./",
