@@ -19,14 +19,13 @@
     "web3": "1.2.4"
   },
   "scripts": {
-    "watch": "cd ethereum; nodemon --delay 0.77 -e js --exec 'truffle test'",
+    "watch": "cd ethereum; nodemon --delay 0.77 -e js,sol --exec 'truffle test'",
     "test": "cd ethereum; truffle test",
-    "build": "cd ethereum; truffle compile && npm run type-contracts && npm run compile-tests",
-    "ganache": "ganache-cli -p 7545",
+    "build": "cd ethereum; truffle compile && npm run type-contracts && tsc",
+    "start": "ganache-cli",
     "type-contracts": "cd ethereum; typechain --target=truffle --outDir=build/contract-interfaces \"./build/**/*.json\"",
-    "compile-tests": "tsc --project ./ethereum/ -p ./tsconfig.json",
-    "compile-tools": "tsc --project ./tools/ -p ./tsconfig.json",
-    "clear": "git clean -dfx -e .idea"
+    "clean": "git clean -dfxn --exclude .idea ./",
+    "postinstall": "node tools/fix-web3-types.js"
   },
   "repository": {
     "type": "git",
