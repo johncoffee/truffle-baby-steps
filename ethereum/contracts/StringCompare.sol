@@ -9,7 +9,7 @@ contract StringCompare {
         return (isSame); // must have paranthesis!
     }
 
-//    function CompareFromStorage () public pure {
-//        assert(keccak256(someWords) == keccak256("my name"));
-//    }
+   // function CompareFromStorage () public pure {
+   //     assert(keccak256(someWords) == keccak256("my name"));
+   // }
 }
