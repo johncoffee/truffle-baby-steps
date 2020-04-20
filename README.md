@@ -5,7 +5,8 @@ Basically what the [Truffle](http://truffleframework.com/) framework does best.
 
 The approach is the same as fiveogit's great repo [solidity-baby-steps](https://github.com/fivedogit/solidity-baby-steps)
 
-Because Truffle/web3.js is under heavy development, I've added CI to help visualize if it still installs and compiles [![CircleCI](https://circleci.com/gh/johncoffee/truffle-baby-steps.svg?style=svg)](https://circleci.com/gh/johncoffee/truffle-baby-steps)
+Truffle/web3.js is under heavy development - does it still compile?:  
+[![CircleCI](https://circleci.com/gh/johncoffee/truffle-baby-steps.svg?style=svg)](https://circleci.com/gh/johncoffee/truffle-baby-steps)
 
 
 # Let's learn Solidity with the Truffle framework!
