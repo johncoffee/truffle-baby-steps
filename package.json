@@ -24,7 +24,7 @@
     "build": "cd ethereum; tsc truffle-config.ts && truffle compile && npm run type-contracts",
     "start": "ganache-cli",
     "type-contracts": "cd ethereum; typechain --target=truffle --outDir=build/contract-interfaces \"./build/**/*.json\"",
-    "clean": "git clean -dfxn --exclude .idea ./",
+    "clean": "git clean  -dfx --exclude .idea ./",
     "postinstall": "node tools/fix-web3-types.js"
   },
   "repository": {
