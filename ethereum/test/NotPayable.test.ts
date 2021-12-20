@@ -14,7 +14,7 @@ contract('NotPayable', function([deployer]) {
       })
     }
     catch (e) {
-      msg = e.toString()
+      msg = `${e}`
     }
     assert.notEqual('', msg, "Should have thrown error - or at least not failed silently")
 
@@ -30,7 +30,7 @@ contract('NotPayable', function([deployer]) {
       await instance.ReturnMeGas()
     }
     catch (e) {
-      msg = e.toString()
+      msg = `${e}`
     }
     assert.notEqual('', msg, "Should have thrown error - or at least not failed silently")
   })

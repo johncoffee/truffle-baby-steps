@@ -8,7 +8,7 @@ contract('ArrayToConstructor', () => {
       await ArrayToConstructor.new(['0x0000000000000000000000000000000000000000'])
     }
     catch (e) {
-      reason = e.toString()
+      reason = `${e}`
     }
     assert(reason.includes('Nice people cannot be address(0)'), "We expected the creation to go bad")
   })
